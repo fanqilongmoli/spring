@@ -15,6 +15,7 @@ import java.util.List;
 
 public class MybatisTest {
 
+
     @Test
     public void test1() throws IOException {
         //创建SqlSessionFactoryBuilder
@@ -47,14 +48,39 @@ public class MybatisTest {
         SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         User user = new User();
-        user.setUsername("fanqilong");
+        user.setUsername("fanqilong2");
         user.setSex("1");
         user.setAddress("address");
         user.setBirthday(new Date());
         sqlSession.insert("user.insertUser", user);
+
+        System.out.println(user);
         //提交事物
         sqlSession.commit();
         sqlSession.close();
 
+    }
+
+    @Test
+    public void updateUser(){
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        User user = sqlSession.selectOne("user.getUserById", 29);
+        user.setUsername("fanqilong666");
+        sqlSession.update("user.updateUser",user);
+        System.out.println(user);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void deleteUser(){
+
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.delete("user.deleteUser",26);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }
