@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--spring IOC 注解入门-->
+    <!--使用IOC的注解开发，配置组件扫描 (哪些包下面的类使用IOC注解)-->
+    <!--<context:component-scan base-package="com.fanqilong.spring"/>-->
+
+    <!--在没有扫描的情况下 使用属性注入注解:@Resource @Value @Autowired @Qualifier-->
+    <context:annotation-config/>
+
+    <bean name="productService" class="com.fanqilong.spring.demo3.ProductService">
+        <!--<property name="orderDao" ref="order"/>-->
+        <!--<property name="productDao" ref="productDao"/>-->
+    </bean>
+
+    <bean name="productDao" class="com.fanqilong.spring.demo3.ProductDao"/>
+    <bean name="order" class="com.fanqilong.spring.demo3.OrderDao"/>
+
+</beans>

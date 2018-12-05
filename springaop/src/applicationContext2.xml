@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--使用IOC的注解开发，配置组件扫描 (哪些包下面的类使用IOC注解)-->
+    <!--<context:component-scan base-package="com.fanqilong.spring.demo3"/>-->
+
+    <!--在没有扫描的情况下 使用属性注入注解:@Resource @Value @Autowired @Qualifier-->
+    <!--<context:annotation-config/>-->
+
+    <!-- 在配置文件中开启注解的AOP的开发============ -->
+    <aop:aspectj-autoproxy/>
+
+    <!-- 配置目标类-->
+    <bean id="orderDao" class="com.fanqilong.spring.demo3.OrderDao"/>
+
+    <!-- 配置切面类================ -->
+    <bean id="myAspect" class="com.fanqilong.spring.demo3.MyAspectAnno"/>
+</beans>

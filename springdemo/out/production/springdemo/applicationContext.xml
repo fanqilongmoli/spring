@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--spring 入门配置-->
+    <bean id="userDao" class="com.fanqilong.spring.demo1.UserDaoImpl"/>
+
+    <!--spring bean 生命周期配置-->
+    <!--
+        bean 的作用范围
+        singleton ： 默认的 spring采用单例模式创建这个类
+        prototype ： 多例模式
+        request   ： 应用在web项目中，spring创建这个类后，将这个类存入到request范围中
+        session   ： 应用在web项目中，spring创建这个类后，将这个类存入到session范围中
+        globalsession ： 应用在web项目中，必须在porlet环境下使用
+    -->
+    <bean id="customer" scope="prototype" class="com.fanqilong.spring.demo2.CustomerDaoImpl" init-method="setup"
+          destroy-method="destory"/>
+
+    <!--
+        spring的属性的注入
+        构造方法
+        set方法
+    -->
+    <!-- 构造方法 -->
+    <bean id="car" class="com.fanqilong.spring.demo3.Car">
+        <constructor-arg name="name" value="宝马"/>
+        <constructor-arg name="price" value="80808080"/>
+    </bean>
+    <!--set方法-->
+    <bean id="car2" class="com.fanqilong.spring.demo3.Car2">
+        <property name="name" value="qweqwe"/>
+        <property name="price" value="123123"/>
+    </bean>
+
+    <bean id="person" class="com.fanqilong.spring.demo3.Person">
+        <property name="name" value="qweqwe"/>
+        <property name="car2" ref="car2"/>
+    </bean>
+
+</beans>
