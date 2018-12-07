@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--先加载内部标签 在加载外部文件 属性名称一致时，会替换内容-->
+    <properties resource="jdbc.properties">
+        <property name="jdbc.username" value="root"/>
+        <property name="jdbc.password" value="123456"/>
+    </properties>
+    <typeAliases>
+        <!--单个定义别名 别名的使用不区分大小写-->
+        <!--<typeAlias type="com.fanqilong.mybaits.pojo.User" alias="user"/>-->
+        <!--别名包扫描 别名是类的全称 不区分大小写  ！！！推荐的方式-->
+        <package name="com.fanqilong.mybaits.pojo"/>
+    </typeAliases>
+    <!-- 和spring整合后 environments配置将废除 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用jdbc事务管理 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driverClass}"/>
+                <property name="url"
+                          value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--加载映射文件-->
+    <mappers>
+        <mapper resource="config/mybatis/user.xml"/>
+        <!--<mapper resource="config/mybatis/UserMapper.xml"/>-->
+
+        <!--映射文件，class扫描器
+            1.接口文件必须与映射文件在同一目录下
+            2.接口文件名必须与映射文件名称一致-->
+        <!--<mapper class="com.fanqilong.mybaits.mapper.UserMapper"/>-->
+
+        <!--映射文件,包扫描 ！！！推荐方式
+            1.接口文件必须与映射文件在同一目录下
+            2.接口文件名必须与映射文件名称一致-->
+        <package name="com.fanqilong.mybaits.mapper"/>
+    </mappers>
+</configuration>

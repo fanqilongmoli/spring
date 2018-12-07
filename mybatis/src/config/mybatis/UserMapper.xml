@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 是命名空间 是用来隔离sql语句的
+    #{} 是一个占位符 相当与jdbc的？
+    ${} 是字符串拼接指令 如果入参为不同数据类型 {}内只能写value-->
+<mapper namespace="user">
+    <!--id 是sql语句的唯一表示
+        parameterType是入参的数据类型
+        resultType返回结果的数据类型
+        -->
+    <select id="getUserById" parameterType="int" resultType="com.fanqilong.mybaits.pojo.User">
+        select * from `user` where id = #{id}
+    </select>
+    <!--resultType 如果返回结果为集合值，只需要设置为单个元素的数据类型-->
+    <select id="getUserByUsername" parameterType="string" resultType="com.fanqilong.mybaits.pojo.User">
+        select * from `user` where username LIKE '%${value}%'
+    </select>
+    <!--插入用户-->
+    <!--
+        selectKey:主键返回
+        keyProperty：user 中的主键属性
+        resultType：主键的数据类型
+        order：指定selectKey何时执行： BEFORE sql执行之前  AFTER sql执行之后
+    -->
+    <!--
+
+        useGeneratedKeys="true" 启动自增
+        keyProperty="id" 和上面配套使用 这里是user 主键
+
+    -->
+    <insert id="insertUser" parameterType="com.fanqilong.mybaits.pojo.User" useGeneratedKeys="true" keyProperty="id">
+        <!--<selectKey keyProperty="id" resultType="int" order="AFTER">-->
+        <!--select LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        insert into `user` (`username`,`birthday`,`sex`,`address`) values (#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+    <!--更新用户-->
+    <update id="updateUser" parameterType="com.fanqilong.mybaits.pojo.User">
+        update `user` set `username` = #{username} where `id` = #{id}
+    </update>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="int">
+        delete from `user` where `id`= #{id}
+    </delete>
+
+
+</mapper>
